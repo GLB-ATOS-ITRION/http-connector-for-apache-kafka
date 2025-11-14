@@ -12,6 +12,50 @@ Connection
   * Valid Values: HTTP(S) URL
   * Importance: high
 
+``http.proxy.host``
+  Proxy hostname
+
+  * Type: string
+  * Default: null
+  * Valid Values: Non-blank string
+  * Importance: low
+
+``http.proxy.port``
+  Proxy port
+
+  * Type: int
+  * Default: -1
+  * Valid Values: [-1,...,65535]
+  * Importance: low
+
+``http2.enabled``
+  Enable HTTP 2 protocol. be default is used HTTP 1.1.
+
+  * Type: boolean
+  * Default: false
+  * Importance: low
+
+``http.ssl.trust.all.certs``
+  Disable hostname verification. Not recommended for production environments.
+
+  * Type: boolean
+  * Default: false
+  * Importance: low
+
+``http.ssl.truststore.location``
+  Path to the SSL truststore file.
+
+  * Type: string
+  * Default: null
+  * Importance: low
+
+``http.ssl.truststore.password``
+  Password for the SSL truststore.
+
+  * Type: password
+  * Default: null
+  * Importance: low
+
 ``http.authorization.type``
   The HTTP authorization type.
 
@@ -43,28 +87,6 @@ Connection
   * Valid Values: Key value pair string list with format header:value
   * Importance: low
 
-``http.ssl.trust.all.certs``
-  Disable hostname verification. Not recommended for production environments.
-
-  * Type: boolean
-  * Default: false
-  * Importance: low
-
-``http.ssl.truststore.location``
-  Path to the SSL truststore file. Only JKS (Java KeyStore) format is supported.
-
-  * Type: string
-  * Default: null
-  * Valid Values: Path to JKS truststore file
-  * Importance: low
-
-``http.ssl.truststore.password``
-  Password for the SSL truststore. Required when truststore location is specified.
-
-  * Type: password
-  * Default: null
-  * Importance: low
-
 ``oauth2.access.token.url``
   The URL to be used for fetching an access token. Client Credentials is the only supported grant type.
 
@@ -78,7 +100,8 @@ Connection
   The grant type Key used for fetching an access token.
 
   * Type: string
-  * Default: "grant_type"
+  * Default: grant_type
+  * Valid Values: OAuth2 grant type key
   * Importance: high
   * Dependents: ``oauth2.grant.type``
 
@@ -86,14 +109,16 @@ Connection
   The grant type used for fetching an access token.
 
   * Type: string
-  * Default: "client_credentials"
+  * Default: client_credentials
+  * Valid Values: OAuth2 grant type
   * Importance: high
 
 ``oauth2.request.client.id.property``
   The client id Key used for fetching an access token.
 
   * Type: string
-  * Default: "client_id"
+  * Default: client_id
+  * Valid Values: OAuth2 client id Key
   * Importance: high
   * Dependents: ``oauth2.client.id``
 
@@ -106,12 +131,11 @@ Connection
   * Importance: high
   * Dependents: ``oauth2.access.token.url``, ``oauth2.client.secret``, ``oauth2.client.authorization.mode``, ``oauth2.client.scope``, ``oauth2.response.token.property``
 
-
 ``oauth2.request.client.secret.property``
-  The client secret Key used for fetching an access token.
+  The secret Key used for fetching an access token.
 
   * Type: string
-  * Default: "client_secret"
+  * Default: client_secret
   * Importance: high
   * Dependents: ``oauth2.client.secret``
 
@@ -128,9 +152,9 @@ Connection
 
   * Type: string
   * Default: HEADER
-  * Valid Values: [HEADER, URL]
+  * Valid Values: HEADER,URL
   * Importance: medium
-  * Dependents: ``oauth2.access.token.url``, ``oauth2.request.grant.type.property``, ``oauth2.grant.type``, ``oauth2.request.client.id.property``, ``oauth2.client.id``, ``oauth2.request.client.secret.property``, ``oauth2.client.secret``, ``oauth2.client.scope``, ``oauth2.response.token.property``
+  * Dependents: ``oauth2.access.token.url``, ``oauth2.client.id``, ``oauth2.client.secret``, ``oauth2.client.scope``, ``oauth2.response.token.property``
 
 ``oauth2.client.scope``
   The scope used for fetching an access token.
@@ -237,14 +261,14 @@ Errors Handling
   * Default: null
   * Importance: low
 
-Formatting
-^^^^^^^^^^^^^^^
+Format
+^^^^^^
 
 ``decimal.format``
-  Controls which format this converter will serialize decimals in. It can be either `BASE64` (default) or `NUMERIC`.
+  Controls which format this converter will serialize decimals in. and can be either BASE64 (default) or NUMERIC.
 
   * Type: string
   * Default: BASE64
-  * Valid Values: [BASE64, NUMERIC]
   * Importance: low
+
 

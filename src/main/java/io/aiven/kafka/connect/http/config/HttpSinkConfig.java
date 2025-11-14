@@ -43,6 +43,7 @@ public final class HttpSinkConfig extends AbstractConfig {
     private static final String HTTP_URL_CONFIG = "http.url";
     private static final String HTTP_PROXY_HOST = "http.proxy.host";
     private static final String HTTP_PROXY_PORT = "http.proxy.port";
+    private static final String HTTP_2_ENABLED = "http2.enabled";
     private static final String HTTP_SSL_TRUST_ALL_CERTIFICATES = "http.ssl.trust.all.certs";
     private static final String HTTP_SSL_TRUSTSTORE_LOCATION = "http.ssl.truststore.location";
     private static final String HTTP_SSL_TRUSTSTORE_PASSWORD = "http.ssl.truststore.password";
@@ -139,6 +140,17 @@ public final class HttpSinkConfig extends AbstractConfig {
             groupCounter++,
             ConfigDef.Width.SHORT,
             HTTP_PROXY_PORT
+        );
+        configDef.define(
+                HTTP_2_ENABLED,
+                Type.BOOLEAN,
+                false,
+                ConfigDef.Importance.LOW,
+                "Enable HTTP 2 protocol. be default is used HTTP 1.1.",
+                CONNECTION_GROUP,
+                groupCounter++,
+                ConfigDef.Width.SHORT,
+                HTTP_2_ENABLED
         );
         configDef.define(
             HTTP_SSL_TRUST_ALL_CERTIFICATES,
@@ -821,6 +833,10 @@ public final class HttpSinkConfig extends AbstractConfig {
 
     public final boolean hasProxy() {
         return getString(HTTP_PROXY_HOST) != null;
+    }
+
+    public final boolean http2Enabled() {
+        return getBoolean(HTTP_2_ENABLED) != null && getBoolean(HTTP_2_ENABLED);
     }
 
     public final InetSocketAddress proxy() {
