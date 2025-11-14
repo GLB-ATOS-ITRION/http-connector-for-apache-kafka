@@ -47,12 +47,21 @@ public final class HttpSenderFactory {
         final var clientBuilder = HttpClient.newBuilder();
         configureProxy(config, clientBuilder);
         configureSsl(config, clientBuilder);
+        configureHttpProtocol(config, clientBuilder);
         return clientBuilder.build();
     }
 
     private static void configureProxy(final HttpSinkConfig config, final HttpClient.Builder clientBuilder) {
         if (config.hasProxy()) {
             clientBuilder.proxy(ProxySelector.of(config.proxy()));
+        }
+    }
+
+    private static void configureHttpProtocol(final HttpSinkConfig config, final HttpClient.Builder clientBuilder) {
+        if (config.http2Enabled()) {
+            clientBuilder.version(HttpClient.Version.HTTP_2);
+        } else {
+            clientBuilder.version(HttpClient.Version.HTTP_1_1);
         }
     }
 
